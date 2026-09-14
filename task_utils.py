@@ -24,8 +24,10 @@ def add_task(title, description, due_date):
     
 # Implement mark_task_as_complete function
 def mark_task_as_complete(index, tasks=tasks):
-    if 0 <= index < len(tasks):
-        tasks[index]["completed"] = True
+    # Convert 1-based user input to 0-based list index
+    list_index = index - 1
+    if 0 <= list_index < len(tasks):
+        tasks[list_index]["completed"] = True
         print("Task marked as complete!")
         return True
     else:
@@ -38,7 +40,8 @@ def view_pending_tasks(tasks=tasks):
     for i, task in enumerate(tasks):
         if not task["completed"]:
             pending_found = True
-            print(f"[{i}] Title: {task['title']} | Due: {task['due_date']} | Desc: {task['description']}")
+            # Display using a 1-based display number for the user
+            print(f"[{i + 1}] Title: {task['title']} | Due: {task['due_date']} | Desc: {task['description']}")
     
     if not pending_found:
         print("No pending tasks.")
