@@ -1,0 +1,55 @@
+from datetime import datetime
+
+# Import validation functions
+from validation import validate_task_title, validate_task_description, validate_due_date
+
+# Define tasks list
+tasks = []
+
+# Implement add_task function
+def add_task(title, description, due_date):
+    if not validate_task_title(title) or not validate_task_description(description) or not validate_due_date(due_date):
+        print("Invalid task details. Task not added.")
+        return False
+    
+    # Store task as a dictionary
+    new_task = {
+        "title": title,
+        "description": description,
+        "due_date": due_date,
+        "completed": False
+    }
+    tasks.append(new_task)
+    print("Task added successfully!")
+    return True
+    
+# Implement mark_task_as_complete function
+def mark_task_as_complete(index, tasks=tasks):
+    # Check if index is valid (0-based indexing)
+    if 0 <= index < len(tasks):
+        tasks[index]["completed"] = True
+        print("Task marked as complete!")
+        return True
+    else:
+        print("Invalid task index.")
+        return False
+    
+# Implement view_pending_tasks function
+def view_pending_tasks(tasks=tasks):
+    pending_found = False
+    for i, task in enumerate(tasks):
+        if not task["completed"]:
+            pending_found = True
+            print(f"[{i}] Title: {task['title']} | Due: {task['due_date']} | Desc: {task['description']}")
+    
+    if not pending_found:
+        print("No pending tasks.")
+
+# Implement calculate_progress function
+def calculate_progress(tasks=tasks):
+    if not tasks:
+        return 0.0
+        
+    completed_count = sum(1 for task in tasks if task["completed"])
+    progress = (completed_count / len(tasks)) * 100
+    return progress
