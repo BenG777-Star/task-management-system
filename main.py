@@ -1,5 +1,5 @@
 # Import functions from task_manager.task_utils package
-from task_utils import add_task, mark_task_as_complete, view_pending_tasks, calculate_progress
+from task_manager.task_utils import add_task, mark_task_as_complete, view_pending_tasks, calculate_progress
 
 # Define the main function
 def main():
@@ -19,7 +19,6 @@ def main():
             add_task(title, description, due_date)
             
         elif choice == "2":
-            # Show pending tasks first so user knows which index to pick
             print("\nPending Tasks:")
             view_pending_tasks()
             try:
